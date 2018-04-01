@@ -1,0 +1,73 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+const store = new Vuex.Store({
+	state:{
+		gameStatus:"initial",
+		userStatus:'underway',//win lost underway
+		flagMode:false,
+		pieceSize:'3.6',
+		gameData:{
+			'simple':{
+				linkTo:'play',
+				data:null,
+				alias:'简单',
+				panelSize:{x:9,y:9},
+				mines:9,
+				time:0
+			},
+			'normal':{
+				linkTo:'play',
+				data:null,
+				alias:'中等',
+				panelSize:{x:16,y:16},
+				mines:40,
+				time:0
+			},
+			'difficulty':{
+				linkTo:'play',
+				data:null,
+				alias:'困难',
+				panelSize:{x:30,y:16},
+				mines:40,
+				time:0
+			},
+			'custom':{
+				linkTo:'custom',
+				data:null,
+				alias:'自定义',
+				panelSize:{x:null,y:null},
+				mines:null,
+				time:0
+			}
+		}
+	},
+	mutations:{
+		initial(state){
+			state.gameStatus='initial'
+		},
+		running(state){
+			state.gameStatus='running'
+		},
+		paused(state){
+			state.gameStatus='paused'
+		},
+		finished(state){
+			state.gameStatus='finished'
+		},
+		updataMapData(state,payload){
+			// console.log(payload)
+			state.gameData[payload.level].data=payload.data;
+		},
+		win(state){
+			state.userStatus='win';
+		},
+		lost(state){
+			state.userStatus='lost';
+		},
+		underway(state){
+			state.userStatus='underway';
+		}
+	}
+});
+export default store
